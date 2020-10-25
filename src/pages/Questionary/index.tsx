@@ -7,32 +7,25 @@ import {
   withStyles,
   createStyles,
 } from '@material-ui/core';
-import Button from '../../components/Button';
+import BackgroundGradient from '../../components/BackgroundGradient';
 
-const styles = createStyles({
-  container: {
-    background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
-    height: '100vh',
-  },
-});
-
-const Questionary: React.FC<{ classes: any }> = ({ classes }) => {
+const Questionary: React.FC = () => {
   return (
-    <Container
-      classes={{ root: classes.container }}
-      // display="flex"
-      // justifyContent="center"
-      // alignItems="center"
-      // width={1}
-      // minHeight="100vh"
-      // fixed
-    >
-      <Card>
-        <Typography>Questionary</Typography>
-        <Button color="primary">Test</Button>
-      </Card>
-    </Container>
+    <BackgroundGradient>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        width={1}
+        minHeight="100vh"
+        // fixed
+      >
+        <Card>
+          <Typography>Questionary</Typography>
+        </Card>
+      </Box>
+    </BackgroundGradient>
   );
 };
 
-export default withStyles(styles)(Questionary);
+export default Questionary;

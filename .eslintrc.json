@@ -24,6 +24,7 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-types": "off",
     "no-use-before-define": "off",
     "class-methods-use-this": "off",

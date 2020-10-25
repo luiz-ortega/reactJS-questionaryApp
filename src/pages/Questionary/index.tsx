@@ -8,22 +8,12 @@ import {
   createStyles,
 } from '@material-ui/core';
 import BackgroundGradient from '../../components/BackgroundGradient';
+import LoginCardContainer from '../../components/LoginCardContainer';
 
 const Questionary: React.FC = () => {
   return (
     <BackgroundGradient>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        width={1}
-        minHeight="100vh"
-        // fixed
-      >
-        <Card>
-          <Typography>Questionary</Typography>
-        </Card>
-      </Box>
+      <LoginCardContainer>TESTE</LoginCardContainer>
     </BackgroundGradient>
   );
 };

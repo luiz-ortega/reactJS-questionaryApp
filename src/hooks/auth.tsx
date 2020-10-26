@@ -22,7 +22,7 @@ const AuthProvider: React.FC = ({ children }) => {
       return JSON.parse(user);
     }
 
-    return {} as SignInCredentials;
+    return false;
   });
 
   const signIn = useCallback(async ({ name, email, password }) => {

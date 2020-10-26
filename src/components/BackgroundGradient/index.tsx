@@ -5,6 +5,7 @@ const styles = createStyles({
   container: {
     background: 'linear-gradient(#0067AC, #05477E)',
     height: '100vh',
+    maxWidth: '100%',
   },
 });
 

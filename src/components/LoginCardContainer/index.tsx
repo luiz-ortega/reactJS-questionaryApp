@@ -1,10 +1,23 @@
 import React from 'react';
-import { Card, Box, createStyles, withStyles } from '@material-ui/core';
+import {
+  Card,
+  Box,
+  createStyles,
+  withStyles,
+  CardContent,
+} from '@material-ui/core';
+import logo from '../../assests/logo_name.svg';
 
 const styles = createStyles({
   card: {
-    minWidth: 300,
-    minHeight: 300,
+    minWidth: 350,
+    minHeight: 385,
+    marginTop: 30,
+  },
+  cardContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '0 20px',
   },
 });
 
@@ -17,10 +30,14 @@ const LoginCardContainer: React.FC<{ classes: any }> = ({
       display="flex"
       justifyContent="center"
       alignItems="center"
+      flexDirection="column"
       width={1}
       minHeight="100vh"
     >
-      <Card className={classes.card}>{children}</Card>
+      <img src={logo} alt="KPIs" />
+      <Card className={classes.card}>
+        <CardContent className={classes.cardContent}>{children}</CardContent>
+      </Card>
     </Box>
   );
 };

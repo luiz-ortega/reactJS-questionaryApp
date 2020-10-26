@@ -1,7 +1,17 @@
 import React from 'react';
-import { Card, Box } from '@material-ui/core';
+import { Card, Box, createStyles, withStyles } from '@material-ui/core';
 
-const LoginCardContainer: React.FC = ({ children }) => {
+const styles = createStyles({
+  card: {
+    minWidth: 300,
+    minHeight: 300,
+  },
+});
+
+const LoginCardContainer: React.FC<{ classes: any }> = ({
+  children,
+  classes,
+}) => {
   return (
     <Box
       display="flex"
@@ -10,9 +20,9 @@ const LoginCardContainer: React.FC = ({ children }) => {
       width={1}
       minHeight="100vh"
     >
-      <Card>{children}</Card>
+      <Card className={classes.card}>{children}</Card>
     </Box>
   );
 };
 
-export default LoginCardContainer;
+export default withStyles(styles)(LoginCardContainer);

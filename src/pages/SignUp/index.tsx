@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Typography, Link, withStyles, createStyles } from '@material-ui/core';
+import * as Yup from 'yup';
+import { Errors, getValidationErrors } from '../../utils/getValidationErrors';
 
 import BackgroundGradient from '../../components/BackgroundGradient';
 import LoginCardContainer from '../../components/LoginCardContainer';
@@ -27,9 +29,45 @@ const styles = createStyles({
   },
 });
 
+interface SignUpFormData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const SignUp: React.FC<{ classes: any }> = ({ classes }) => {
-  const test = (e: any) => {
-    console.log(e.target.value);
+  const [data, setData] = useState<SignUpFormData>({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState<Errors>({});
+
+  const submit = async () => {
+    try {
+      setError({});
+
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Name é obrigatório.'),
+        email: Yup.string()
+          .required('Email é obrigatório.')
+          .email('Digite um e-mail válido.'),
+        password: Yup.string().required('Senha é obrigatória.'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        setError({ ...errors });
+      }
+    }
+  };
+
+  const handleChange = (e: any) => {
+    setData({ ...data, [e.target.id]: e.target.value });
   };
   return (
     <BackgroundGradient>
@@ -39,31 +77,36 @@ const SignUp: React.FC<{ classes: any }> = ({ classes }) => {
         </Typography>
 
         <Input
+          id="name"
           className={classes.input}
           label="Nome"
-          onChange={test}
+          onChange={handleChange}
           error={false}
-          helperText=""
+          helperText={error ? error.name : ''}
         />
 
         <Input
+          id="email"
           className={classes.input}
           label="E-mail"
-          onChange={test}
+          onChange={handleChange}
           error={false}
-          helperText=""
+          helperText={error ? error.email : ''}
         />
 
         <Input
+          id="password"
           className={classes.input}
           label="Senha"
-          onChange={test}
+          onChange={handleChange}
           error={false}
-          helperText=""
+          helperText={error ? error.password : ''}
         />
 
         <div className={classes.button}>
-          <Button color="primary">Cadastrar</Button>
+          <Button onClick={submit} color="primary">
+            Registrar
+          </Button>
         </div>
         <div className={classes.link}>
           <Link component={RouterLink} to="/">

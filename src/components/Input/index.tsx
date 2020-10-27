@@ -12,7 +12,8 @@ const Input: React.FC<IInputProps> = ({
   label,
   onChange,
   error,
-  helperText,
+  helperText = '',
+  className,
 }) => {
   return (
     <TextField
@@ -20,6 +21,7 @@ const Input: React.FC<IInputProps> = ({
       onChange={onChange}
       helperText={helperText}
       error={error}
+      className={className}
     />
   );
 };

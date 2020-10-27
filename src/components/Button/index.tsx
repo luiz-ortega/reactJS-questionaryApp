@@ -7,7 +7,7 @@ interface IButtonProps {
 
 const Button: React.FC<IButtonProps> = ({ color, children }) => {
   return (
-    <MaterialUiButton variant="contained" color={color}>
+    <MaterialUiButton variant="contained" size="large" color={color}>
       {children}
     </MaterialUiButton>
   );

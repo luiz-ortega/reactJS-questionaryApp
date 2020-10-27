@@ -11,8 +11,8 @@ import logo from '../../assests/logo_name.svg';
 const styles = createStyles({
   card: {
     minWidth: 350,
-    minHeight: 385,
-    marginTop: 30,
+    height: 385,
+    marginTop: 50,
   },
   cardContent: {
     display: 'flex',

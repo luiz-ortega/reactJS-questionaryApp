@@ -1,11 +1,19 @@
 import React, { InputHTMLAttributes } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, withStyles, createStyles } from '@material-ui/core';
+
+const styles = createStyles({
+  container: {
+    position: 'relative',
+    height: 70,
+  },
+});
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   onChange(e: any): void;
   error: boolean;
   helperText: string;
+  classes: any;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -14,16 +22,22 @@ const Input: React.FC<IInputProps> = ({
   error,
   helperText = '',
   className,
+  id,
+  classes,
 }) => {
   return (
-    <TextField
-      label={label}
-      onChange={onChange}
-      helperText={helperText}
-      error={error}
-      className={className}
-    />
+    <div className={classes.container}>
+      <TextField
+        id={id}
+        fullWidth
+        label={label}
+        onChange={onChange}
+        helperText={helperText}
+        error={error}
+        className={className}
+      />
+    </div>
   );
 };
 
-export default Input;
+export default withStyles(styles)(Input);

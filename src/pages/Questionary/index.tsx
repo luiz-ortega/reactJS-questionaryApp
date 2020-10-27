@@ -10,7 +10,7 @@ import {
 import Question from '../../components/Question';
 
 const Questionary: React.FC = () => {
-  return <Question />;
+  return <Question question="Quantos funcionários tem a sua empresa?" />;
 };
 
 export default Questionary;

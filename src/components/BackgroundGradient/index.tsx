@@ -9,7 +9,12 @@ const styles = createStyles({
   },
 });
 
-const BackgroundGradient: React.FC<{ classes: any; children: any }> = ({
+interface IBackgroundGradientProps {
+  classes: any;
+  children: any;
+}
+
+const BackgroundGradient: React.FC<IBackgroundGradientProps> = ({
   children,
   classes,
 }) => {

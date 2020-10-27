@@ -101,6 +101,7 @@ const SignUp: React.FC<{ classes: any }> = ({ classes }) => {
           onChange={handleChange}
           error={false}
           helperText={error ? error.password : ''}
+          type="password"
         />
 
         <div className={classes.button}>

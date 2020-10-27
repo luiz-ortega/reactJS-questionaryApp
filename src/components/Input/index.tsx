@@ -13,7 +13,8 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange(e: any): void;
   error: boolean;
   helperText: string;
-  classes: any;
+  classes?: any;
+  type?: string;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -24,6 +25,7 @@ const Input: React.FC<IInputProps> = ({
   className,
   id,
   classes,
+  type = 'text',
 }) => {
   return (
     <div className={classes.container}>
@@ -35,6 +37,7 @@ const Input: React.FC<IInputProps> = ({
         helperText={helperText}
         error={error}
         className={className}
+        type={type}
       />
     </div>
   );

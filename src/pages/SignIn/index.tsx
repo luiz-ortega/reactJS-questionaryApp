@@ -9,6 +9,8 @@ import LoginCardContainer from '../../components/LoginCardContainer';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import { useAuth } from '../../hooks/auth';
+
 const styles = createStyles({
   typography: {
     marginTop: 10,
@@ -36,6 +38,8 @@ interface SignInFormData {
 }
 
 const SignIn: React.FC<{ classes: any }> = ({ classes }) => {
+  const { signIn } = useAuth();
+
   const [data, setData] = useState<SignInFormData>({
     name: '',
     email: '',
@@ -58,6 +62,8 @@ const SignIn: React.FC<{ classes: any }> = ({ classes }) => {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      signIn(data);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -69,6 +75,7 @@ const SignIn: React.FC<{ classes: any }> = ({ classes }) => {
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.id]: e.target.value });
   };
+
   return (
     <BackgroundGradient>
       <LoginCardContainer>
@@ -101,6 +108,7 @@ const SignIn: React.FC<{ classes: any }> = ({ classes }) => {
           onChange={handleChange}
           error={false}
           helperText={error ? error.password : ''}
+          type="password"
         />
 
         <div className={classes.button}>

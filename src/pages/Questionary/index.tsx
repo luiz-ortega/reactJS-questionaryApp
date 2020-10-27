@@ -1,14 +1,16 @@
 import React from 'react';
-import // Typography,
-// Card,
-// Box,
-// Container,
-// withStyles,
-// createStyles,
-'@material-ui/core';
+import {
+  Typography,
+  Card,
+  Box,
+  Container,
+  withStyles,
+  createStyles,
+} from '@material-ui/core';
+import Question from '../../components/Question';
 
 const Questionary: React.FC = () => {
-  return <h1>Questionary</h1>;
+  return <Question />;
 };
 
 export default Questionary;

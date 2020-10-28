@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  Typography,
-  Card,
-  Box,
-  Container,
-  withStyles,
-  createStyles,
-  FormControlLabel,
-  FormControl,
-  RadioGroup,
-  FormLabel,
-  Radio,
-} from '@material-ui/core';
+import { Typography, Box, withStyles, createStyles } from '@material-ui/core';
 
 import logo from '../../assests/logo.svg';
 import Button from '../Button';
@@ -26,13 +14,28 @@ const styles = createStyles({
     display: 'flex',
     alignItems: 'center',
   },
+  headerContent: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100vw',
+    margin: '0px 50px',
+  },
   question: { color: 'white', fontWeight: 600, fontSize: 24 },
   footer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     position: 'fixed',
     bottom: 0,
     backgroundColor: '#0067AC',
     height: 150,
     width: '100vw',
+  },
+  progressContainer: {
+    position: 'absolute',
+    right: 0,
+    marginRight: 50,
   },
 });
 
@@ -45,17 +48,20 @@ const Question: React.FC<IQuestionProps> = ({ question, classes }) => {
   return (
     <>
       <Box className={classes.header}>
-        <Typography className={classes.question}>{question}</Typography>
-        <img src={logo} alt="logo" />
+        <Box className={classes.headerContent}>
+          <Typography className={classes.question}>{question}</Typography>
+          <img src={logo} alt="logo" />
+        </Box>
       </Box>
       <Box>
-        <RadioQuestionary />
+        {/* <RadioQuestionary /> */}
         <RatingQuestionary />
       </Box>
       <Box className={classes.footer}>
-        <Box>
-          <Button color="secondary">Responder</Button>
-          <Progress value={100} />
+        <Button color="secondary">Responder</Button>
+
+        <Box className={classes.progressContainer}>
+          <Progress value={32} />
         </Box>
       </Box>
     </>

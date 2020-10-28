@@ -34,7 +34,7 @@ const LoginCardContainer: React.FC<{ classes: any }> = ({
       width={1}
       minHeight="100vh"
     >
-      <img src={logo} alt="KPIs" />
+      <img src={logo} alt="logo" />
       <Card className={classes.card}>
         <CardContent className={classes.cardContent}>{children}</CardContent>
       </Card>

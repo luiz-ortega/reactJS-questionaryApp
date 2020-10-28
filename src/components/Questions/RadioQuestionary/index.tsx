@@ -1,16 +1,12 @@
 import React from 'react';
 import {
-  Typography,
-  Card,
-  Box,
-  Container,
-  withStyles,
-  createStyles,
   FormControlLabel,
   FormControl,
   RadioGroup,
-  FormLabel,
   Radio,
+  withStyles,
+  createStyles,
+  Box,
 } from '@material-ui/core';
 
 const options = [
@@ -21,7 +17,26 @@ const options = [
   'Mais de 500',
 ];
 
-const RadioQuestionary: React.FC = () => {
+const styles = createStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '70vh',
+  },
+  radioGroupContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    height: '30vh',
+    marginLeft: 50,
+  },
+});
+
+interface IRatingQuesitonaryProps {
+  classes: any;
+}
+
+const RadioQuestionary: React.FC<IRatingQuesitonaryProps> = ({ classes }) => {
   const [value, setValue] = React.useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,19 +44,24 @@ const RadioQuestionary: React.FC = () => {
   };
   return (
     <FormControl component="fieldset">
-      <pre>{JSON.stringify(value)}</pre>
-      <RadioGroup value={value} onChange={handleChange}>
-        {options.map(question => (
-          <FormControlLabel
-            key={question}
-            value={question}
-            control={<Radio color="primary" />}
-            label={question}
-          />
-        ))}
-      </RadioGroup>
+      <Box className={classes.container}>
+        <RadioGroup
+          className={classes.radioGroupContainer}
+          value={value}
+          onChange={handleChange}
+        >
+          {options.map(question => (
+            <FormControlLabel
+              key={question}
+              value={question}
+              control={<Radio color="primary" />}
+              label={question}
+            />
+          ))}
+        </RadioGroup>
+      </Box>
     </FormControl>
   );
 };
 
-export default RadioQuestionary;
+export default withStyles(styles)(RadioQuestionary);

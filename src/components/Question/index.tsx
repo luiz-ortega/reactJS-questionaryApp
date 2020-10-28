@@ -5,6 +5,7 @@ import logo from '../../assests/logo.svg';
 import Button from '../Button';
 import RadioQuestionary from '../Questions/RadioQuestionary';
 import RatingQuestionary from '../Questions/RatingQuestionary';
+import BarChart from '../BarChart';
 import Progress from '../Progress';
 
 const styles = createStyles({
@@ -54,8 +55,9 @@ const Question: React.FC<IQuestionProps> = ({ question, classes }) => {
         </Box>
       </Box>
       <Box>
+        <BarChart />
         {/* <RadioQuestionary /> */}
-        <RatingQuestionary />
+        {/* <RatingQuestionary /> */}
       </Box>
       <Box className={classes.footer}>
         <Button color="secondary">Responder</Button>

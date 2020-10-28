@@ -6,6 +6,10 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import { useQuestionary } from '../../hooks/questionary';
+import { useAuth } from '../../hooks/auth';
+
 import BackgroundGradient from '../../components/BackgroundGradient';
 import BarChart from '../../components/BarChart';
 import Button from '../../components/Button';
@@ -41,6 +45,12 @@ interface IResultsProps {
 }
 
 const Results: React.FC<IResultsProps> = ({ classes }) => {
+  const { signOut } = useAuth();
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
   return (
     <BackgroundGradient>
       <Box className={classes.container}>
@@ -100,7 +110,9 @@ const Results: React.FC<IResultsProps> = ({ classes }) => {
         </Card>
 
         <Box className={classes.buttonContainer}>
-          <Button color="secondary">Sair</Button>
+          <Button onClick={handleSignOut} color="secondary">
+            Sair
+          </Button>
         </Box>
       </Box>
     </BackgroundGradient>

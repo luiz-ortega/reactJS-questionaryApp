@@ -49,7 +49,7 @@ const QuestionaryProvider: React.FC = ({ children }) => {
   const [questionsAnswers, setQuestionsAnswers] = useState([]);
 
   const executeAnswer = () => {
-    console.log(currentAnswer);
+    // console.log(currentAnswer);
     setCurrentStep(state => state + 1);
     setCurrentAnswer({} as Answer);
 

@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -9,7 +9,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  signIn(credentials: SignInCredentials): Promise<void>;
+  signIn(credentials: SignInCredentials): void;
   signOut(): void;
   user: SignInCredentials;
 }
@@ -25,20 +25,21 @@ const AuthProvider: React.FC = ({ children }) => {
     return false;
   });
 
-  const signIn = useCallback(async ({ name, email, password }) => {
+  const signIn = ({ name, email, password }: SignInCredentials) => {
     localStorage.setItem(
       '@KPIS:user',
       JSON.stringify({ name, email, password }),
     );
 
     setData({ name, email, password });
-  }, []);
+  };
 
-  const signOut = useCallback(() => {
+  const signOut = () => {
+    document.location.reload();
     localStorage.removeItem('@KPIS:user');
 
     setData({} as SignInCredentials);
-  }, []);
+  };
 
   return (
     <AuthContext.Provider value={{ user: data, signIn, signOut }}>

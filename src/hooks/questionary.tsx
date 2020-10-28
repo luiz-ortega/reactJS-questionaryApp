@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const QuestionaryContext = createContext<QuestionaryContextData>(
   {} as QuestionaryContextData,
@@ -31,8 +32,10 @@ interface Answer {
 }
 
 const QuestionaryProvider: React.FC = ({ children }) => {
+  const history = useHistory();
+
   const [totalSteps, setTotalSteps] = useState(1);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState<Answer>({} as Answer);
   const [results, setResults] = useState(() => {
     const savedResults = localStorage.getItem('@KPIS:results');
@@ -49,6 +52,10 @@ const QuestionaryProvider: React.FC = ({ children }) => {
     console.log(currentAnswer);
     setCurrentStep(state => state + 1);
     setCurrentAnswer({} as Answer);
+
+    if (currentStep === totalSteps - 1) {
+      history.push('/results');
+    }
 
     // const answers = localStorage.getItem('@KPIS:results');
 

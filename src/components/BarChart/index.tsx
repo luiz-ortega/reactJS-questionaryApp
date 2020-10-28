@@ -3,32 +3,20 @@ import { ResponsiveBar } from '@nivo/bar';
 
 const data = [
   {
-    country: 'AD',
-    'hot dog': 186,
+    answer: 'resposta',
+    quantity: 2,
   },
   {
-    country: 'AE',
-    'hot dog': 141,
+    answer: 'resposta2',
+    quantity: 3,
   },
   {
-    country: 'AF',
-    'hot dog': 47,
+    answer: 'resposta3',
+    quantity: 2,
   },
   {
-    country: 'AG',
-    'hot dog': 138,
-  },
-  {
-    country: 'AI',
-    'hot dog': 136,
-  },
-  {
-    country: 'AL',
-    'hot dog': 142,
-  },
-  {
-    country: 'AM',
-    'hot dog': 493,
+    answer: 'respotsa4',
+    quantity: 1,
   },
 ];
 
@@ -36,8 +24,8 @@ const BarChart: React.FC = () => (
   <div style={{ height: 400 }}>
     <ResponsiveBar
       data={data}
-      keys={['hot dog']}
-      indexBy="country"
+      keys={['quantity']}
+      indexBy="answer"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       colors={{ scheme: 'category10' }}

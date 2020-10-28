@@ -4,7 +4,8 @@ import { Container, withStyles, createStyles } from '@material-ui/core';
 const styles = createStyles({
   container: {
     background: 'linear-gradient(#0067AC, #063862)',
-    height: '100vh',
+    minHeight: '100vh',
+    height: 'auto',
     maxWidth: '100%',
   },
 });

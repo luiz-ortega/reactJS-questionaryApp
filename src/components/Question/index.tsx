@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Box, withStyles, createStyles } from '@material-ui/core';
 
 import logo from '../../assests/logo.svg';
@@ -6,6 +6,8 @@ import Button from '../Button';
 import RadioQuestionary from '../Questions/RadioQuestionary';
 import RatingQuestionary from '../Questions/RatingQuestionary';
 import Progress from '../Progress';
+
+import { useQuestionary } from '../../hooks/questionary';
 
 const styles = createStyles({
   header: {
@@ -42,9 +44,25 @@ const styles = createStyles({
 interface IQuestionProps {
   question: string;
   classes: any;
+  answerType?: 'radio' | 'rating' | undefined;
 }
 
-const Question: React.FC<IQuestionProps> = ({ question, classes }) => {
+const Question: React.FC<IQuestionProps> = ({
+  answerType = 'radio',
+  question,
+  classes,
+}) => {
+  const {
+    executeAnswer,
+    currentStep,
+    totalSteps,
+    setTotalSteps,
+  } = useQuestionary();
+
+  useEffect(() => {
+    setTotalSteps(4);
+  });
+
   return (
     <>
       <Box className={classes.header}>
@@ -54,13 +72,15 @@ const Question: React.FC<IQuestionProps> = ({ question, classes }) => {
         </Box>
       </Box>
       <Box>
-        <RadioQuestionary />
-        {/* <RatingQuestionary /> */}
+        {answerType === 'radio' && <RadioQuestionary question={question} />}
+        {answerType === 'rating' && <RatingQuestionary question={question} />}
       </Box>
       <Box className={classes.footer}>
-        <Button color="secondary">Responder</Button>
+        <Button onClick={executeAnswer} color="secondary">
+          Responder
+        </Button>
         <Box className={classes.progressContainer}>
-          <Progress value={32} />
+          <Progress value={(currentStep / totalSteps) * 100} />
         </Box>
       </Box>
     </>

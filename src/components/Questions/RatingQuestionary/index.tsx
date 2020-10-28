@@ -36,9 +36,13 @@ const styles = createStyles({
 
 interface IRatingQuestionaryProps {
   classes: any;
+  question: string;
 }
 
-const RatingQuestionary: React.FC<IRatingQuestionaryProps> = ({ classes }) => {
+const RatingQuestionary: React.FC<IRatingQuestionaryProps> = ({
+  classes,
+  question,
+}) => {
   const [value, setValue] = React.useState(0);
 
   return (

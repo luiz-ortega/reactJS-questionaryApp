@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
+import { QuestionaryProvider } from '../hooks/questionary';
 
 import Route from './Route';
 
@@ -13,8 +14,10 @@ const Routes: React.FC = () => (
     <Route path="/" exact component={SignIn} />
     <Route path="/signup" exact component={SignUp} />
 
-    <Route path="/questionary" component={Questionary} isPrivate />
-    <Route path="/results" component={Results} isPrivate />
+    <QuestionaryProvider>
+      <Route path="/questionary" component={Questionary} isPrivate />
+      <Route path="/results" component={Results} isPrivate />
+    </QuestionaryProvider>
   </Switch>
 );
 

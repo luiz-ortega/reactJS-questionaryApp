@@ -1,61 +1,92 @@
-// import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-// const QuestionaryContext = createContext<QuestionaryContextData>(
-//   {} as QuestionaryContextData,
-// );
+const QuestionaryContext = createContext<QuestionaryContextData>(
+  {} as QuestionaryContextData,
+);
 
-// interface Answer {
-//   question: string;
-//   answer: string;
-// }
+interface QuestionaryContextData {
+  executeAnswer(): void;
+  results: Results[];
+  setTotalSteps(totalStep: number): void;
+  totalSteps: number;
+  currentAnswer: Answer;
+  setCurrentAnswer(answer: Answer): void;
+  currentStep: number;
+  setCurrentStep(step: number): void;
+}
 
-// interface QuestionaryContextData {
-//   executeAsnwer(answer: Answer): void;
-//   reset(): void;
-//   answer: Answer;
-// }
+interface Answers {
+  [key: string]: string;
+}
 
-// const QuestionaryProvider: React.FC = ({ children }) => {
-//   const [data, setData] = useState<SignInCredentials>(() => {
-//     const user = localStorage.getItem('@KPIS:user');
+interface Results {
+  question: string;
+  answers: Answers;
+}
 
-//     if (user) {
-//       return JSON.parse(user);
-//     }
+interface Answer {
+  question: string;
+  answer: string;
+  options: string[];
+}
 
-//     return false;
-//   });
+const QuestionaryProvider: React.FC = ({ children }) => {
+  const [totalSteps, setTotalSteps] = useState(1);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [currentAnswer, setCurrentAnswer] = useState<Answer>({} as Answer);
+  const [results, setResults] = useState(() => {
+    const savedResults = localStorage.getItem('@KPIS:results');
 
-//   const signIn = useCallback(async ({ name, email, password }) => {
-//     localStorage.setItem(
-//       '@KPIS:user',
-//       JSON.stringify({ name, email, password }),
-//     );
+    if (savedResults) {
+      return JSON.parse(savedResults);
+    }
 
-//     setData({ name, email, password });
-//   }, []);
+    return [];
+  });
+  const [questionsAnswers, setQuestionsAnswers] = useState([]);
 
-//   const signOut = useCallback(() => {
-//     localStorage.removeItem('@KPIS:user');
+  const executeAnswer = () => {
+    console.log(currentAnswer);
+    setCurrentStep(state => state + 1);
+    setCurrentAnswer({} as Answer);
 
-//     setData({} as SignInCredentials);
-//   }, []);
+    // const answers = localStorage.getItem('@KPIS:results');
 
-//   return (
-//     <QuestionaryContext.Provider value={{ user: data, signIn, signOut }}>
-//       {children}
-//     </QuestionaryContext.Provider>
-//   );
-// };
+    // localStorage.setItem(
+    //   '@KPIS:user',
+    //   JSON.stringify({ name, email, password }),
+    // );
 
-// function useQuestionary(): QuestionaryContextData {
-//   const context = useContext(QuestionaryContext);
+    // setData({ name, email, password });
+    // setQuestionsAnswers();
+  };
 
-//   if (!context) {
-//     throw new Error('useAuth must be used within an QuestionaryProvider');
-//   }
+  return (
+    <QuestionaryContext.Provider
+      value={{
+        results,
+        executeAnswer,
+        setTotalSteps,
+        totalSteps,
+        currentAnswer,
+        setCurrentAnswer,
+        currentStep,
+        setCurrentStep,
+      }}
+    >
+      {children}
+    </QuestionaryContext.Provider>
+  );
+};
 
-//   return context;
-// }
+function useQuestionary(): QuestionaryContextData {
+  const context = useContext(QuestionaryContext);
 
-// export { QuestionaryProvider, useQuestionary };
+  if (!context) {
+    throw new Error('useAuth must be used within an QuestionaryProvider');
+  }
+
+  return context;
+}
+
+export { QuestionaryProvider, useQuestionary };

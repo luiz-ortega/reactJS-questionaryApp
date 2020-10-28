@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   FormControlLabel,
   FormControl,
@@ -8,6 +8,8 @@ import {
   createStyles,
   Box,
 } from '@material-ui/core';
+
+import { useQuestionary } from '../../../hooks/questionary';
 
 const options = [
   '1 até 50',
@@ -34,28 +36,38 @@ const styles = createStyles({
 
 interface IRatingQuesitonaryProps {
   classes: any;
+  question: string;
 }
 
-const RadioQuestionary: React.FC<IRatingQuesitonaryProps> = ({ classes }) => {
-  const [value, setValue] = React.useState('');
+const RadioQuestionary: React.FC<IRatingQuesitonaryProps> = ({
+  classes,
+  question,
+}) => {
+  const { setCurrentAnswer } = useQuestionary();
+
+  const [answer, setAnswer] = React.useState('');
+
+  useEffect(() => {
+    setCurrentAnswer({ question, answer, options });
+  }, [answer, setCurrentAnswer, question]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    setAnswer((event.target as HTMLInputElement).value);
   };
   return (
     <FormControl component="fieldset">
       <Box className={classes.container}>
         <RadioGroup
           className={classes.radioGroupContainer}
-          value={value}
+          value={answer}
           onChange={handleChange}
         >
-          {options.map(question => (
+          {options.map(option => (
             <FormControlLabel
-              key={question}
-              value={question}
+              key={option}
+              value={option}
               control={<Radio color="primary" />}
-              label={question}
+              label={option}
             />
           ))}
         </RadioGroup>

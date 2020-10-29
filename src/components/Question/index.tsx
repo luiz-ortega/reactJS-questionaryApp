@@ -57,6 +57,7 @@ const Question: React.FC<IQuestionProps> = ({
     currentStep,
     totalSteps,
     setTotalSteps,
+    currentAnswer,
   } = useQuestionary();
 
   useEffect(() => {
@@ -76,7 +77,11 @@ const Question: React.FC<IQuestionProps> = ({
         {answerType === 'rating' && <RatingQuestionary question={question} />}
       </Box>
       <Box className={classes.footer}>
-        <Button onClick={executeAnswer} color="secondary">
+        <Button
+          disabled={!currentAnswer.answer}
+          onClick={executeAnswer}
+          color="secondary"
+        >
           Responder
         </Button>
         <Box className={classes.progressContainer}>

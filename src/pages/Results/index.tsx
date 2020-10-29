@@ -6,7 +6,6 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import { useQuestionary } from '../../hooks/questionary';
 import { useAuth } from '../../hooks/auth';
 

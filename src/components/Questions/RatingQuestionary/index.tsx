@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Typography,
   Box,
@@ -8,8 +8,9 @@ import {
 } from '@material-ui/core';
 
 import Button from '../../Button';
+import { useQuestionary } from '../../../hooks/questionary';
 
-const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
 const styles = createStyles({
   container: {
@@ -43,7 +44,17 @@ const RatingQuestionary: React.FC<IRatingQuestionaryProps> = ({
   classes,
   question,
 }) => {
-  const [value, setValue] = React.useState(0);
+  const { setCurrentAnswer, currentAnswer } = useQuestionary();
+
+  const [answer, setAnswer] = React.useState('');
+
+  useEffect(() => {
+    setCurrentAnswer({ question, answer, options });
+  }, [answer, setCurrentAnswer, question]);
+
+  const handleChange = (option: string) => {
+    setAnswer(option);
+  };
 
   return (
     <FormControl>
@@ -54,8 +65,8 @@ const RatingQuestionary: React.FC<IRatingQuestionaryProps> = ({
           {options.map(option => (
             <Button
               key={option}
-              onClick={() => setValue(option)}
-              color={option === value ? 'primary' : 'secondary'}
+              onClick={() => handleChange(option)}
+              color={option === currentAnswer.answer ? 'primary' : 'secondary'}
             >
               {option}
             </Button>

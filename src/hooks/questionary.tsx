@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const QuestionaryContext = createContext<QuestionaryContextData>(
@@ -14,6 +14,7 @@ interface QuestionaryContextData {
   setCurrentAnswer(answer: Answer): void;
   currentStep: number;
   setCurrentStep(step: number): void;
+  questionsAnswers: any;
 }
 
 interface Answers {
@@ -46,26 +47,54 @@ const QuestionaryProvider: React.FC = ({ children }) => {
 
     return [];
   });
-  const [questionsAnswers, setQuestionsAnswers] = useState([]);
+  const [questionsAnswers, setQuestionsAnswers] = useState<Results[]>(() => {
+    if (results.length > 0) {
+      return results;
+    }
+    return [];
+  });
 
-  const executeAnswer = () => {
-    // console.log(currentAnswer);
-    setCurrentStep(state => state + 1);
-    setCurrentAnswer({} as Answer);
-
-    if (currentStep === totalSteps - 1) {
+  useEffect(() => {
+    if (totalSteps > 1 && currentStep === totalSteps) {
+      localStorage.setItem(
+        '@KPIS:results',
+        JSON.stringify([...questionsAnswers]),
+      );
+      setResults(questionsAnswers);
       history.push('/results');
     }
+  }, [totalSteps, currentStep, questionsAnswers, history]);
 
-    // const answers = localStorage.getItem('@KPIS:results');
+  const executeAnswer = () => {
+    const { question, answer, options } = currentAnswer;
 
-    // localStorage.setItem(
-    //   '@KPIS:user',
-    //   JSON.stringify({ name, email, password }),
-    // );
+    const questionExists = results.find(
+      (result: { question: string }) => result.question === question,
+    );
 
-    // setData({ name, email, password });
-    // setQuestionsAnswers();
+    if (questionExists) {
+      const index = questionsAnswers.findIndex(
+        questionAnswer => questionAnswer.question === question,
+      );
+      const newQuestion = {
+        ...questionExists,
+        answers: {
+          ...questionExists.answers,
+          [answer]: questionExists.answers[answer] + 1,
+        },
+      };
+      questionsAnswers.splice(index, 1, newQuestion);
+    } else {
+      let answers = options.reduce((acc, option) => {
+        acc = { ...acc, [option]: 0 };
+        return acc;
+      }, {});
+      answers = { ...answers, [answer]: 1 };
+      setQuestionsAnswers([...questionsAnswers, { question, answers }]);
+    }
+
+    setCurrentStep(state => state + 1);
+    setCurrentAnswer({} as Answer);
   };
 
   return (
@@ -79,6 +108,7 @@ const QuestionaryProvider: React.FC = ({ children }) => {
         setCurrentAnswer,
         currentStep,
         setCurrentStep,
+        questionsAnswers,
       }}
     >
       {children}

@@ -1,31 +1,21 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
-const data = [
-  {
-    answer: 'resposta',
-    quantity: 2,
-  },
-  {
-    answer: 'resposta2',
-    quantity: 3,
-  },
-  {
-    answer: 'resposta3',
-    quantity: 2,
-  },
-  {
-    answer: 'respotsa4',
-    quantity: 1,
-  },
-];
+interface Result {
+  resposta: string;
+  quantidade: number;
+}
 
-const BarChart: React.FC = () => (
+interface IBarChartProps {
+  data: Result[];
+}
+
+const BarChart: React.FC<IBarChartProps> = ({ data }) => (
   <div style={{ height: 400 }}>
     <ResponsiveBar
       data={data}
-      keys={['quantity']}
-      indexBy="answer"
+      keys={['quantidade']}
+      indexBy="resposta"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       colors={{ scheme: 'category10' }}

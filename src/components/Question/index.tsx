@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Typography, Box, withStyles, createStyles } from '@material-ui/core';
 
 import logo from '../../assests/logo.svg';
@@ -56,13 +56,9 @@ const Question: React.FC<IQuestionProps> = ({
     executeAnswer,
     currentStep,
     totalSteps,
-    setTotalSteps,
+
     currentAnswer,
   } = useQuestionary();
-
-  useEffect(() => {
-    setTotalSteps(4);
-  });
 
   return (
     <>

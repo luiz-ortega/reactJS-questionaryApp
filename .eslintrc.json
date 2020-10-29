@@ -24,6 +24,9 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "guard-for-in": "off",
+    "no-restricted-syntax": "off",
+    "no-param-reassign": "off",
     "react/destructuring-assignment": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-types": "off",

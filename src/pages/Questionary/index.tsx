@@ -1,10 +1,13 @@
-import React from 'react';
-import {} from '@material-ui/core';
+import React, { useEffect } from 'react';
 import Question from '../../components/Question';
 import { useQuestionary } from '../../hooks/questionary';
 
 const Questionary: React.FC = () => {
-  const { currentStep } = useQuestionary();
+  const { currentStep, setTotalSteps } = useQuestionary();
+
+  useEffect(() => {
+    setTotalSteps(4);
+  });
   return (
     <>
       {currentStep === 0 && (

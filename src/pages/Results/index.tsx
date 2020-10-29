@@ -9,6 +9,8 @@ import {
 import { useQuestionary } from '../../hooks/questionary';
 import { useAuth } from '../../hooks/auth';
 
+import formatAnswers from '../../utils/formatResults';
+
 import BackgroundGradient from '../../components/BackgroundGradient';
 import BarChart from '../../components/BarChart';
 import Button from '../../components/Button';
@@ -45,6 +47,7 @@ interface IResultsProps {
 
 const Results: React.FC<IResultsProps> = ({ classes }) => {
   const { signOut } = useAuth();
+  const { results } = useQuestionary();
 
   const handleSignOut = () => {
     signOut();
@@ -56,57 +59,20 @@ const Results: React.FC<IResultsProps> = ({ classes }) => {
         <Typography className={classes.title} color="secondary" variant="h5">
           Resultados
         </Typography>
-        <Card className={classes.card}>
-          <Box className={classes.barChartContainer}>
-            <Typography
-              color="primary"
-              className={classes.question}
-              variant="h5"
-            >
-              Quantos funcionários tem a sua empresa?
-            </Typography>
-            <BarChart />
-          </Box>
-        </Card>
-
-        <Card className={classes.card}>
-          <Box className={classes.barChartContainer}>
-            <Typography
-              color="primary"
-              className={classes.question}
-              variant="h5"
-            >
-              Quantos funcionários tem a sua empresa?
-            </Typography>
-            <BarChart />
-          </Box>
-        </Card>
-
-        <Card className={classes.card}>
-          <Box className={classes.barChartContainer}>
-            <Typography
-              color="primary"
-              className={classes.question}
-              variant="h5"
-            >
-              Quantos funcionários tem a sua empresa?
-            </Typography>
-            <BarChart />
-          </Box>
-        </Card>
-
-        <Card className={classes.card}>
-          <Box className={classes.barChartContainer}>
-            <Typography
-              color="primary"
-              className={classes.question}
-              variant="h5"
-            >
-              Quantos funcionários tem a sua empresa?
-            </Typography>
-            <BarChart />
-          </Box>
-        </Card>
+        {formatAnswers(results).map(result => (
+          <Card key={result.question} className={classes.card}>
+            <Box className={classes.barChartContainer}>
+              <Typography
+                color="primary"
+                className={classes.pergunta}
+                variant="h5"
+              >
+                {result.question}
+              </Typography>
+              <BarChart data={result.answers} />
+            </Box>
+          </Card>
+        ))}
 
         <Box className={classes.buttonContainer}>
           <Button onClick={handleSignOut} color="secondary">
